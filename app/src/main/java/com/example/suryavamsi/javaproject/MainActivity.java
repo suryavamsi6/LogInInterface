@@ -1,6 +1,5 @@
 package com.example.suryavamsi.javaproject;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,14 +39,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 u = edt1.getText().toString();
                 p = edt2.getText().toString();
-
-              //  t1.setText(u);
-               //if(ref.is()==null)
-               //     i=1;
                 is = Integer.toString(++i);
                 ref = database.getReference().child("member").child(is);
-
-                //ref2 = database.getReference().child("member").child("1").child("password");
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
