@@ -33,19 +33,20 @@ public class MainActivity extends AppCompatActivity {
         t2 = (TextView)findViewById(R.id.textView2);
         edt1 = (EditText)findViewById(R.id.editText);
         edt2 = (EditText)findViewById(R.id.editText2);
-        i = 0;
         button = (Button)findViewById(R.id.button);
+        i = 0;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 u = edt1.getText().toString();
                 p = edt2.getText().toString();
+
+              //  t1.setText(u);
+               //if(ref.is()==null)
+               //     i=1;
+                is = Integer.toString(++i);
                 ref = database.getReference().child("member").child(is);
-                t1.setText(u);
-               //if(ref.(is)==null)
-                //    i=1;
-               /* is = Integer.toString(++i);
-                ref = database.getReference().child("member").child(is);
+
                 //ref2 = database.getReference().child("member").child("1").child("password");
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                             String un = dataSnapshot.child("user").getValue().toString();
                             String pwd = dataSnapshot.child("password").getValue().toString();
                             if(un.equals(u))
-                                if(pwd.equals(p))
+                               if(pwd.equals(p))
                                  Toast.makeText(getApplicationContext(),"Log in Successfull!",Toast.LENGTH_LONG).show();
 
                         }
@@ -69,9 +70,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                });*/
+                });
             }
-        });
+        }
+        );
 
 
     }
