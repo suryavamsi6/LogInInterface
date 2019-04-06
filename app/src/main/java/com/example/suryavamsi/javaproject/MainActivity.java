@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     TextView t1 , t2;
     Button bt,bt2;
-    int i;
+    int i,max;
     String is,u,p,un,pwd;
     int NotFound,Found;
     EditText edt1,edt2;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         NotFound = 0;
         Found = 0;
         i = 1;
+        max = 3;
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,13 +101,19 @@ public class MainActivity extends AppCompatActivity {
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                openActivity3();
+                max++;
             }
         });
 
 
         }
 
+
+    public void openActivity3(){
+        Intent intent = new Intent(this,Main3Activity.class);
+       // intent.putExtra("max", max);
+        startActivity(intent);}
     public void openActivity2(){
         Intent intent = new Intent(this,Main2Activity.class);
         intent.putExtra("is", is);
