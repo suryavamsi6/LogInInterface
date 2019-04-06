@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">JavaProject</string>
+    <string name="get">Get</string>
+    <string name="update">Update</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter Password!</string>
+    <string name="enter_Username">Enter Username!</string>
+    <string name="log_in">Log IN</string>
+</resources>
