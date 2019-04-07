@@ -17,5 +17,6 @@
     <string name="re_enter_password">Re-enter Password:</string>
     <string name="enter_name">Enter Name:</string>
     <string name="enter_phone">Enter Phone:</string>
-    <string name="confirm">Confirm</string>\
+    <string name="confirm">Confirm</string>
+    <string name="done">done</string>\
 </resources>

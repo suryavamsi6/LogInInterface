@@ -1,5 +1,6 @@
 package com.example.suryavamsi.javaproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,8 +22,9 @@ import org.w3c.dom.Text;
 public class Main2Activity extends AppCompatActivity {
     TextView nm,ph,t3,t4;
     FirebaseDatabase database;
+    Button bt4;
     DatabaseReference ref2;
-    String is ,name,phone;
+    String username ,name,phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +33,12 @@ public class Main2Activity extends AppCompatActivity {
         ph = findViewById(R.id.phone);
         t3 = findViewById(R.id.textView4);
         t4 = findViewById(R.id.textView6);
-        is = getIntent().getStringExtra("is");
+        bt4 = findViewById(R.id.button4);
+        Bundle bundle = getIntent().getExtras();
+        username = bundle.getString("cur");
+        //is = Integer.toString(cur);
         database = FirebaseDatabase.getInstance();
-        ref2 = database.getReference().child("member").child(is);
+        ref2 = database.getReference().child("member").child(username);
         ref2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -47,9 +53,21 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+        bt4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity1();
+            }
+        });
 
 
 
     }
+    public void openActivity1()
+    {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
 
 }

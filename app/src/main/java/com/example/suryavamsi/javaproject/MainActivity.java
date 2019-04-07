@@ -1,6 +1,7 @@
 package com.example.suryavamsi.javaproject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,11 +18,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-    TextView t1 , t2;
+    TextView t1 , t2,t3;
     Button bt,bt2;
-    int i,max;
+    int i,max,fn;
     String is,u,p,un,pwd;
-    int NotFound,Found;
+    boolean Found;
     EditText edt1,edt2;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref;
@@ -32,72 +33,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         t1 = findViewById(R.id.textView);
         t2 = findViewById(R.id.textView2);
+        t3 = findViewById(R.id.textView11);
         edt1 = findViewById(R.id.editText);
         edt2 = findViewById(R.id.editText2);
         bt =  findViewById(R.id.button);
         bt2 = findViewById(R.id.button2);
-        NotFound = 0;
-        Found = 0;
+
         i = 1;
         max = 2;
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                i=1;
-                u = edt1.getText().toString();
-                p = edt2.getText().toString();
-                while(i<=3)
-               {
-
-                    is = Integer.toString(i);
-                    ref = database.getReference().child("member").child(is);
-                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(!dataSnapshot.hasChild("user"))
-                        {
-                          Toast.makeText(getApplicationContext(),"Invalid Username/Password!!",Toast.LENGTH_LONG).show();
-                            NotFound = 1;
-                        }
-                        else {
-                            un = dataSnapshot.child("user").getValue().toString();
-                            pwd = dataSnapshot.child("password").getValue().toString();
-                            if (un.equals(u))
-                                if (pwd.equals(p)) {
-                                   Found = 1;
-                                   //openActivity2();
-                                    //Toast.makeText(getApplicationContext(), "Valid Username/Password!!", Toast.LENGTH_LONG).show();
-                                    //i = 5;
-
-                                    // NotFound = true;
-                                }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                    i++;
-
-
-               }
-                if(NotFound == 1)
-                {
-                    Toast.makeText(getApplicationContext(),"Invalid Username/Password!!",Toast.LENGTH_SHORT).show();
-                    // i=1;
-                }
-                if(Found == 1){
-                    openActivity2();
-                }
-                Toast.makeText(getApplicationContext(),"outside",Toast.LENGTH_SHORT).show();
-
+               signin(edt1.getText().toString(),edt2.getText().toString());
             }
-        }
-        );
+        });
+
+        //Toast.makeText(getApplicationContext(),"outside",Toast.LENGTH_SHORT).show();
+
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,15 +61,58 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    private void signin(final String username, final String password) {
+            ref = database.getReference().child("member");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child(username).exists())
+                    {
+                        pwd = dataSnapshot.child(username).child("password").getValue().toString();
+                        if (pwd.equals(password)) {
+                                //   Found = true;
+                                //  fn = i;
+                                //    Toast.makeText(getApplicationContext(),Boolean.toString(Found),Toast.LENGTH_SHORT).show();
+                                //check();
+                                openActivity2(username);
+                        }
+
+                        else
+                        {
+                            t3.setTextColor(Color.parseColor("#FF0000"));
+                            t3.setText("Invalid Password!!");
+
+                        }
+
+
+                        //Toast.makeText(getApplicationContext(),"Invalid Username/Password!!",Toast.LENGTH_LONG).show();
+                        // NotFound = true;
+                    }
+                    else {
+                        t3.setTextColor(Color.parseColor("#FF0000"));
+                        t3.setText("User not registered. Create Account first!");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+    }
+
 
     public void openActivity3(){
         Intent intent = new Intent(this,Main3Activity.class);
-        intent.putExtra("max", max);
+       // intent.putExtra("max", max);
         startActivity(intent);}
-    public void openActivity2(){
+    public void openActivity2(final String username){
         Intent intent = new Intent(this,Main2Activity.class);
-        intent.putExtra("is", is);
+        intent.putExtra("cur",username);
         startActivity(intent);}
+
 }
 
 

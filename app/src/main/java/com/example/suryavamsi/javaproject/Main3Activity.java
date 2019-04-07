@@ -1,6 +1,7 @@
 package com.example.suryavamsi.javaproject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,14 +33,14 @@ public class Main3Activity extends AppCompatActivity {
         tv5 = findViewById(R.id.textView9);
         tv6 = findViewById(R.id.textView10);
         bt3 = findViewById(R.id.button3);
-        max = getIntent().getIntExtra("max",max);
-        is = Integer.toString(max);
+        //max = getIntent().getIntExtra("max",max);
+      //  is = Integer.toString(max);
         et1 = findViewById(R.id.editText3);
         et2 = findViewById(R.id.editText4);
         et3 = findViewById(R.id.editText5);
         et4 = findViewById(R.id.editText9);
         et5 = findViewById(R.id.editText10);
-        ref3 = database.getReference().child("member").child(is);
+        ref3 = database.getReference().child("member");
         bt3.setOnClickListener(new View.OnClickListener() {
             String un,pwd,cpwd,name,phone;
             @Override
@@ -51,15 +52,16 @@ public class Main3Activity extends AppCompatActivity {
                 phone = et5.getText().toString();
                 if(pwd.equals(cpwd))
                 {
-                    ref3.child("user").setValue(un);
-                    ref3.child("password").setValue(pwd);
-                    ref3.child("name").setValue(name);
-                    ref3.child("phone").setValue(phone);
+                    ref3.push().setValue(un);
+                    ref3.child(un).child("password").setValue(pwd);
+                    ref3.child(un).child("name").setValue(name);
+                    ref3.child(un).child("phone").setValue(phone);
                     Toast.makeText(getApplicationContext(),"Account Created!",Toast.LENGTH_SHORT).show();
                     openActivity1();
                 }
                 else
                 {
+                    tv6.setTextColor(Color.parseColor("#FF0000"));
                     tv6.setText("Passwords don't match. Re-Check them.");
                 }
 
