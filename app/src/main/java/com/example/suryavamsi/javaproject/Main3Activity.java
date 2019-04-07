@@ -2,6 +2,7 @@ package com.example.suryavamsi.javaproject;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,8 +18,7 @@ public class Main3Activity extends AppCompatActivity {
 
     TextView tv1,tv2,tv3,tv4,tv5,tv6;
     Button bt3;
-    int max;
-    String is;
+    private Vibrator myVib;
     EditText et1,et2,et3,et4,et5;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref3;
@@ -33,18 +33,17 @@ public class Main3Activity extends AppCompatActivity {
         tv5 = findViewById(R.id.textView9);
         tv6 = findViewById(R.id.textView10);
         bt3 = findViewById(R.id.button3);
-        //max = getIntent().getIntExtra("max",max);
-      //  is = Integer.toString(max);
         et1 = findViewById(R.id.editText3);
         et2 = findViewById(R.id.editText4);
         et3 = findViewById(R.id.editText5);
         et4 = findViewById(R.id.editText9);
         et5 = findViewById(R.id.editText10);
-
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         bt3.setOnClickListener(new View.OnClickListener() {
             String un,pwd,cpwd,name,phone;
             @Override
             public void onClick(View view) {
+                myVib.vibrate(50);
                 un = et1.getText().toString();
                 pwd = et2.getText().toString();
                 cpwd = et3.getText().toString();

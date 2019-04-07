@@ -2,6 +2,7 @@ package com.example.suryavamsi.javaproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,7 @@ public class Main2Activity extends AppCompatActivity {
     FirebaseDatabase database;
     Button bt4;
     DatabaseReference ref2;
+    private Vibrator myVib;
     String username ,name,phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class Main2Activity extends AppCompatActivity {
         bt4 = findViewById(R.id.button4);
         Bundle bundle = getIntent().getExtras();
         username = bundle.getString("cur");
-        //is = Integer.toString(cur);
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         database = FirebaseDatabase.getInstance();
         ref2 = database.getReference().child("member").child(username);
         ref2.addValueEventListener(new ValueEventListener() {
@@ -56,6 +58,7 @@ public class Main2Activity extends AppCompatActivity {
         bt4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myVib.vibrate(50);
                 openActivity1();
             }
         });

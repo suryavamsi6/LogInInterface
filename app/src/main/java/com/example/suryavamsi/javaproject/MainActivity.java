@@ -2,6 +2,7 @@ package com.example.suryavamsi.javaproject;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,13 +21,11 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     TextView t1 , t2,t3;
     Button bt,bt2;
-    int i,max,fn;
-    String is,u,p,un,pwd;
-    boolean Found;
+    String pwd;
     EditText edt1,edt2;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref;
-
+    private Vibrator myVib;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,31 +35,25 @@ public class MainActivity extends AppCompatActivity {
         t3 = findViewById(R.id.textView11);
         edt1 = findViewById(R.id.editText);
         edt2 = findViewById(R.id.editText2);
-        bt =  findViewById(R.id.button);
+        bt = findViewById(R.id.button);
         bt2 = findViewById(R.id.button2);
-
-        i = 1;
-        max = 2;
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               signin(edt1.getText().toString(),edt2.getText().toString());
+                signin(edt1.getText().toString(), edt2.getText().toString());
+                myVib.vibrate(50);
             }
         });
-
-        //Toast.makeText(getApplicationContext(),"outside",Toast.LENGTH_SHORT).show();
-
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myVib.vibrate(50);
                 openActivity3();
-                max++;
+
             }
         });
-
-
-        }
-
+    }
     private void signin(final String username, final String password) {
             ref = database.getReference().child("member");
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -70,10 +63,6 @@ public class MainActivity extends AppCompatActivity {
                     {
                         pwd = dataSnapshot.child(username).child("password").getValue().toString();
                         if (pwd.equals(password)) {
-                                //   Found = true;
-                                //  fn = i;
-                                //    Toast.makeText(getApplicationContext(),Boolean.toString(Found),Toast.LENGTH_SHORT).show();
-                                //check();
                                 openActivity2(username);
                         }
 
@@ -84,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-
-                        //Toast.makeText(getApplicationContext(),"Invalid Username/Password!!",Toast.LENGTH_LONG).show();
-                        // NotFound = true;
                     }
                     else {
                         t3.setTextColor(Color.parseColor("#FF0000"));
@@ -106,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivity3(){
         Intent intent = new Intent(this,Main3Activity.class);
-       // intent.putExtra("max", max);
         startActivity(intent);}
     public void openActivity2(final String username){
         Intent intent = new Intent(this,Main2Activity.class);
