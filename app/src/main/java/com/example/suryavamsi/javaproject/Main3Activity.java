@@ -40,7 +40,7 @@ public class Main3Activity extends AppCompatActivity {
         et3 = findViewById(R.id.editText5);
         et4 = findViewById(R.id.editText9);
         et5 = findViewById(R.id.editText10);
-        ref3 = database.getReference().child("member");
+
         bt3.setOnClickListener(new View.OnClickListener() {
             String un,pwd,cpwd,name,phone;
             @Override
@@ -50,9 +50,14 @@ public class Main3Activity extends AppCompatActivity {
                 cpwd = et3.getText().toString();
                 name = et4.getText().toString();
                 phone = et5.getText().toString();
-                if(pwd.equals(cpwd))
+                if(un == "" || pwd == "" || name == "" || phone == "") {
+                    tv6.setTextColor(Color.parseColor("#FF0000"));
+                    tv6.setText("Enter All Details!");
+                }
+                else if(pwd.equals(cpwd))
                 {
-                    ref3.push().setValue(un);
+                  //  ref3.push().setValue(un);
+                    ref3 = database.getReference().child("member");
                     ref3.child(un).child("password").setValue(pwd);
                     ref3.child(un).child("name").setValue(name);
                     ref3.child(un).child("phone").setValue(phone);
