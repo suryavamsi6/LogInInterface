@@ -37,6 +37,7 @@ public class Main2Activity extends AppCompatActivity {
         t4 = findViewById(R.id.textView6);
         bt4 = findViewById(R.id.button4);
         Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
         username = bundle.getString("cur");
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         database = FirebaseDatabase.getInstance();

@@ -49,13 +49,12 @@ public class Main3Activity extends AppCompatActivity {
                 cpwd = et3.getText().toString();
                 name = et4.getText().toString();
                 phone = et5.getText().toString();
-                if(un == "" || pwd == "" || name == "" || phone == "") {
+                if(un.matches("")||pwd.matches("")||name.matches("")|| phone.matches("")) {
                     tv6.setTextColor(Color.parseColor("#FF0000"));
                     tv6.setText("Enter All Details!");
                 }
-                else if(pwd.equals(cpwd))
+                else if(pwd.matches(cpwd))
                 {
-                  //  ref3.push().setValue(un);
                     ref3 = database.getReference().child("member");
                     ref3.child(un).child("password").setValue(pwd);
                     ref3.child(un).child("name").setValue(name);

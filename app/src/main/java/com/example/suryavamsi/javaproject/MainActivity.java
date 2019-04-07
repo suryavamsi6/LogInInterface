@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 public class MainActivity extends AppCompatActivity {
     TextView t1 , t2,t3;
     Button bt,bt2;
@@ -41,9 +43,15 @@ public class MainActivity extends AppCompatActivity {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signin(edt1.getText().toString(), edt2.getText().toString());
-                myVib.vibrate(50);
+                if(edt1.getText().toString().matches("")|| edt2.getText().toString().matches(""))
+                    Toast.makeText(getApplicationContext(),"Enter Log In details!",Toast.LENGTH_SHORT).show();
+                else
+                {
+                    signin(edt1.getText().toString(), edt2.getText().toString());
+                    myVib.vibrate(50);
+                }
             }
+
         });
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     if(dataSnapshot.child(username).exists())
                     {
                         pwd = dataSnapshot.child(username).child("password").getValue().toString();
-                        if (pwd.equals(password)) {
+                        if (pwd.matches(password)) {
                                 openActivity2(username);
                         }
 
