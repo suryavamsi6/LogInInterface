@@ -26,10 +26,10 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        nm = (TextView)findViewById(R.id.name);
-        ph = (TextView)findViewById(R.id.phone);
-        t3 = (TextView)findViewById(R.id.textView4);
-        t4 = (TextView)findViewById(R.id.textView6);
+        nm = findViewById(R.id.name);
+        ph = findViewById(R.id.phone);
+        t3 = findViewById(R.id.textView4);
+        t4 = findViewById(R.id.textView6);
         is = getIntent().getStringExtra("is");
         database = FirebaseDatabase.getInstance();
         ref2 = database.getReference().child("member").child(is);

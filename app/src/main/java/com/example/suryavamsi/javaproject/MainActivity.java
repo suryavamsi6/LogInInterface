@@ -30,16 +30,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        t1 = (TextView)findViewById(R.id.textView);
-        t2 = (TextView)findViewById(R.id.textView2);
-        edt1 = (EditText)findViewById(R.id.editText);
-        edt2 = (EditText)findViewById(R.id.editText2);
-        bt = (Button)findViewById(R.id.button);
-        bt2 = (Button)findViewById(R.id.button2);
+        t1 = findViewById(R.id.textView);
+        t2 = findViewById(R.id.textView2);
+        edt1 = findViewById(R.id.editText);
+        edt2 = findViewById(R.id.editText2);
+        bt =  findViewById(R.id.button);
+        bt2 = findViewById(R.id.button2);
         NotFound = 0;
         Found = 0;
         i = 1;
-        max = 3;
+        max = 2;
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 i=1;
                 u = edt1.getText().toString();
                 p = edt2.getText().toString();
-                while(i<=4)
+                while(i<=3)
                {
 
                     is = Integer.toString(i);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(!dataSnapshot.hasChild("user"))
                         {
-                          //Toast.makeText(getApplicationContext(),"Invalid Username/Password!!",Toast.LENGTH_LONG).show();
+                          Toast.makeText(getApplicationContext(),"Invalid Username/Password!!",Toast.LENGTH_LONG).show();
                             NotFound = 1;
                         }
                         else {
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivity3(){
         Intent intent = new Intent(this,Main3Activity.class);
-       // intent.putExtra("max", max);
+        intent.putExtra("max", max);
         startActivity(intent);}
     public void openActivity2(){
         Intent intent = new Intent(this,Main2Activity.class);
